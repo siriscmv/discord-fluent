@@ -17,12 +17,6 @@ const getEmojis = async () => {
         return {emoji, url: toFluent(name)};
     });
 
-    const alphabets = "abcdefghijklmnopqrstuvwxyz".split("");
-
-    for (const a of alphabets) {
-        emojis.push({emoji: a, url: null});
-    }
-
     return emojis;
 }
 
