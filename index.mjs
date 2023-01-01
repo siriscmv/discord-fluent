@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import fs from "fs";
 
 const toFluent = (emoji) => `https://api.iconify.design/fluent-emoji/${emoji}.svg`;
+const toCSS = (emoji) => `img[aria-label*="${emoji.emoji}"] { content: url("${emoji.url}"); }\n`
 
 const getEmojis = async () => {
     const response = await fetch(TWEMOJI_URL);
@@ -10,11 +11,18 @@ const getEmojis = async () => {
     const emojis = text.match(/(?<=alt=")(.*)(?=")/g).map(e => {
         const text = e.split("\"")[0].split(" ");
         const emoji = text.shift();
-        const name = text.map(s => s.toLowerCase()).join("-");
+        const name = text.map(s => s.toLowerCase()).join("-").replace("keycap:-", "keycap-");
 
         if (name === "") return {emoji: null, url: null};
         return {emoji, url: toFluent(name)};
     });
+
+    const alphabets = "abcdefghijklmnopqrstuvwxyz".split("");
+
+    for (const a of alphabets) {
+        emojis.push({emoji: a, url: null});
+    }
+
     return emojis;
 }
 
@@ -22,7 +30,7 @@ const generateCSS = (emojis) => {
     let css = "";
     for (const emoji of emojis) {
         if (emoji.emoji === null) continue;
-        css += `img[aria-label*="${emoji.emoji}"] { content: url("${emoji.url}"); }\n`;
+        css += toCSS(emoji);
     }
 
     return css;
