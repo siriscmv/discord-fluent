@@ -1,13 +1,15 @@
-const TWEMOJI_URL = "https://emojis.wiki/twitter/";
 import fetch from "node-fetch";
 import { writeFileSync } from "fs";
 
+const TWEMOJI_URL = "https://emojis.wiki/twitter/";
+
 const toFluent = (emoji) =>
     `https://api.iconify.design/fluent-emoji/${emoji}.svg`;
-const toCSS = (emoji) =>
-    `img[aria-label*="${emoji.emoji}"] { content: url("${emoji.url}"); }\n`;
 
-const strip = (name) => {
+const toCSS = (emoji) =>
+    `img[aria-label*="${emoji.emoji}"] { content: url("${emoji.url}"); }`;
+
+const clean = (name) => {
     return name
         .replaceAll(":", "")
         .replaceAll("“", "")
@@ -23,9 +25,9 @@ const getEmojis = async () => {
     const emojis = text.match(/(?<=alt=")(.*)(?=")/g).map((e) => {
         const text = e.split('"')[0].split(" ");
         const emoji = text.shift();
-        const name = strip(text.map((s) => s.toLowerCase()).join("-"));
+        const name = clean(text.map((s) => s.toLowerCase()).join("-"));
 
-        if (name === "") return { emoji: null, url: null };
+        if (name === "") return { emoji, url: null };
         return { emoji, url: toFluent(name) };
     });
 
@@ -34,10 +36,8 @@ const getEmojis = async () => {
 
 const generateCSS = (emojis) =>
     emojis
-        .filter((e) => e.emoji)
+        .filter((e) => e.url)
         .map(toCSS)
-        .join("");
+        .join("\n");
 
-const saveFile = (css) => writeFileSync("emojis.css", css);
-
-getEmojis().then(generateCSS).then(saveFile);
+getEmojis().then(generateCSS).then(css => writeFileSync("emojis.css", css));
