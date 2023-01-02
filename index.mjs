@@ -3,11 +3,9 @@ import { writeFileSync } from "fs";
 
 const TWEMOJI_URL = "https://emojis.wiki/twitter/";
 
-const toFluent = (emoji) =>
-    `https://api.iconify.design/fluent-emoji/${emoji}.svg`;
+const toFluent = (emoji) => `https://api.iconify.design/fluent-emoji/${emoji}.svg`;
 
-const toCSS = (emoji) =>
-    `img[aria-label*="${emoji.emoji}"] { content: url("${emoji.url}"); }`;
+const toCSS = (emoji) => `img[aria-label*="${emoji.emoji}"] { content: url("${emoji.url}"); }`;
 
 const clean = (name) => {
     return name
@@ -27,8 +25,7 @@ const getEmojis = async () => {
         const emoji = text.shift();
         const name = clean(text.map((s) => s.toLowerCase()).join("-"));
 
-        if (name === "") return { emoji, url: null };
-        return { emoji, url: toFluent(name) };
+        return {emoji, url: name === "" ? null : toFluent(name)};
     });
 
     return emojis;
