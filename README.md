@@ -9,7 +9,7 @@
 ## How to use
 
 - Use a custom client / patched asar to inject the css into the discord window.
-- Alternatively you can make use of browser css injecting extensions like [Stylus](https://github.com/openstyles/stylus)
+- Alternatively you can make use of css injecting browser extensions like [Stylus](https://github.com/openstyles/stylus)
 - Download the [emojis.css](https://raw.githubusercontent.com/Siris01/discord-fluent/main/emojis.css) file and add it to your extension.
 
 ## Limitations

@@ -7,14 +7,21 @@ const toFluent = (emoji) => `https://api.iconify.design/fluent-emoji/${emoji}.sv
 
 const toCSS = (emoji) => `img[aria-label*="${emoji.emoji}"] { content: url("${emoji.url}"); }`;
 
+const isBlacklisted = (name) => {
+    if (name === "") return true;
+    if (name === "tok") return true;
+    if (/^flag-/.test(name)) return true;
+
+    return false;
+};
+
 const clean = (name) => {
     return name
         .replaceAll(":", "")
         .replaceAll("“", "")
         .replaceAll("”", "")
         .replaceAll("’", "")
-        .replaceAll("️", "")
-        .replace(/^tok$/g, "");
+        .replaceAll("️", "");
 };
 
 const getEmojis = async () => {
@@ -25,7 +32,7 @@ const getEmojis = async () => {
         const emoji = text.shift();
         const name = clean(text.map((s) => s.toLowerCase()).join("-"));
 
-        return {emoji, url: name === "" ? null : toFluent(name)};
+        return {emoji, url: isBlacklisted(name) ? null : toFluent(name)};
     });
 
     return emojis;
