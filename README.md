@@ -1,6 +1,7 @@
 # Discord Fluent
 
 - Make use of css to force discord to use Microsoft fluent emojis instead of the default ones.
+- Icons are from [iconify.design](iconify.design)
 
 ## Showcase
 
