@@ -1,9 +1,6 @@
-import { writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 
-const TWEMOJI_URL = "https://emojis.wiki/twitter/";
-
-const toFluent = (emoji) => `https://api.iconify.design/fluent-emoji/${emoji}.svg`;
-
+const toFluent = (name) => `https://api.iconify.design/fluent-emoji/${name}.svg`;
 const toCSS = (emoji) => `img[alt|="${emoji.emoji}"] { content: url("${emoji.url}"); }`;
 
 const isBlacklisted = (name) => {
@@ -24,17 +21,15 @@ const clean = (name) => {
 };
 
 const getEmojis = async () => {
-    const response = await fetch(TWEMOJI_URL);
-    const text = await response.text();
-    const emojis = text.match(/(?<=alt=")(.*)(?=")/g).map((e) => {
-        const text = e.split('"')[0].split(" ");
-        const emoji = text.shift();
-        const name = clean(text.map((s) => s.toLowerCase()).join("-"));
+    const emojis = JSON.parse(readFileSync("emojis.json", "utf-8"));
 
-        return {emoji, url: isBlacklisted(name) ? null : toFluent(name)};
+    return emojis.map(e => {
+        const emoji = e.emoji;
+        const name = clean(e.name);
+        const url = isBlacklisted(name) ? null : toFluent(name);
+
+        return {emoji, url};
     });
-
-    return emojis;
 };
 
 const generateCSS = (emojis) =>
