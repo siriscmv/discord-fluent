@@ -4,7 +4,7 @@ const TWEMOJI_URL = "https://emojis.wiki/twitter/";
 
 const toFluent = (emoji) => `https://api.iconify.design/fluent-emoji/${emoji}.svg`;
 
-const toCSS = (emoji) => `img[aria-label*="${emoji.emoji}"] { content: url("${emoji.url}"); }`;
+const toCSS = (emoji) => `img[alt|="${emoji.emoji}"] { content: url("${emoji.url}"); }`;
 
 const isBlacklisted = (name) => {
     if (name === "") return true;
