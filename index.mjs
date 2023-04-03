@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import { writeFileSync } from "fs";
 
 const TWEMOJI_URL = "https://emojis.wiki/twitter/";
