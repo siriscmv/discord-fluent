@@ -56,7 +56,7 @@ fn main() {
 
 fn get_css(emoji: &str, name: &str, is_skintone_emoji: bool, variant: &str) -> String {
     let url = format!(
-        "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/{}/{}/{}_{}.{}",
+        "https://siris01.github.io/discord-fluent/fluentui-emoji/assets/{}/{}/{}_{}.{}",
         encode(name),
         if is_skintone_emoji {
             format!("Default/{}", encode(variant))

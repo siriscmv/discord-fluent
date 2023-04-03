@@ -3,10 +3,11 @@
 @namespace      github.com/Siris01/discord-fluent
 @version        1.0.0
 @description    Replace default discord emojis with MS Fluent emojis
+@preprocessor   stylus
 @author         Siris
-@var select variant "Variant" {"3D": "'3d'", "Color": "'color'", "Flat": "'flat'", "High Contrast": "'high-contrast'"}
+@var select variant "Variant" {"3d": "'3d'", "color": "'color'", "flat": "'flat'", "high-contrast": "'high-contrast'"}
 ==/UserStyle== */
 
 @-moz-document regexp("https?://(canary\\.|ptb\\.|)discord.com/.*") {
-    @import url("https://raw.githubusercontent.com/Siris01/discord-fluent/main/css/fluent-" + variant + ".css")
+    @import url("https://siris01.github.io/discord-fluent/css/fluent-" + variant + ".css")
 }
