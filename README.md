@@ -4,11 +4,11 @@
 
 ## Showcase
 
-![Normal](assets/normal.png)
-![3D](assets/3d.png)
-![Color](assets/color.png)
-![Flat](assets/flat.png)
-![High Contrast](assets/high-contrast.png)
+- Normal ![Normal](assets/normal.png)
+- 3D ![3D](assets/3d.png)
+- Color ![Color](assets/color.png)
+- Flat ![Flat](assets/flat.png)
+- High Contrast ![High Contrast](assets/high-contrast.png)
 
 ## How to use
 
