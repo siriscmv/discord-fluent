@@ -4,11 +4,13 @@
 
 ## Showcase
 
-- Normal ![Normal](assets/normal.png)  
-- 3D ![3D](assets/3d.png)  
-- Color ![Color](assets/color.png)  
-- Flat ![Flat](assets/flat.png)  
-- High Contrast ![High Contrast](assets/high-contrast.png)  
+<table>
+<tr><td>Normal</td><td><img src="assets/normal.png" /></td></tr>
+<tr><td>3D</td><td><img src="assets/3d.png" /></td></tr>
+<tr><td>Color</td><td><img src="assets/color.png" /></td></tr>
+<tr><td>Flat</td><td><img src="assets/flat.png" /></td></tr>
+<tr><td>High Contrast</td><td><img src="assets/high-contrast.png" /></td></tr>
+</table>
 
 ## How to use
 
