@@ -5,6 +5,7 @@
 ## Showcase
 
 <table>
+<tr><td>Animated</td><td><img src="assets/animated.mp4" /></td></tr>
 <tr><td>Normal</td><td><img src="assets/normal.png" /></td></tr>
 <tr><td>3D</td><td><img src="assets/3d.png" /></td></tr>
 <tr><td>Color</td><td><img src="assets/color.png" /></td></tr>
