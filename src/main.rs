@@ -88,6 +88,7 @@ fn get_css(emoji: &str, name: &str, is_skintone_emoji: bool, variant: &str) -> S
 
 fn get_animated_css(emoji: &str, name: &str) -> Option<String> {
     let path: Option<String> = {
+        let mut path = None;
         for entry in WalkDir::new("animated-fluent-emoji/Emojis")
             .into_iter()
             .filter_map(|e| e.ok())
@@ -99,10 +100,12 @@ fn get_animated_css(emoji: &str, name: &str) -> Option<String> {
                 .to_lowercase()
                 .starts_with(&name.to_lowercase())
             {
-                return Some(entry.path().display().to_string());
+                path = Some(entry.path().display().to_string());
+                break;
             }
         }
-        None
+
+        path
     };
 
     if path.is_none() {
