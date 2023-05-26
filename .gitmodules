@@ -1,3 +1,6 @@
 [submodule "fluentui-emoji"]
 	path = fluentui-emoji
 	url = https://github.com/microsoft/fluentui-emoji.git
+[submodule "animated-fluent-emoji"]
+	path = animated-fluent-emoji
+	url = https://github.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis.git
