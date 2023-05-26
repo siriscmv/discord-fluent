@@ -1,6 +1,6 @@
 use lazy_static::lazy_static;
 use regex::Regex;
-use std::{fs, fs::File, io::Write, error};
+use std::{fs, fs::File, io::Write};
 use urlencoding::encode;
 use walkdir::WalkDir;
 
@@ -11,13 +11,13 @@ lazy_static! {
 
 fn main() {
     let emojis = fs::read_dir(EMOJIS_PATH.as_str()).unwrap();
-    
+
     let mut css_animated = File::create("css/fluent-animated.css").unwrap();
     let mut css_3d = File::create("css/fluent-3d.css").unwrap();
     let mut css_color = File::create("css/fluent-color.css").unwrap();
     let mut css_flat = File::create("css/fluent-flat.css").unwrap();
     let mut css_high_contrast = File::create("css/fluent-high-contrast.css").unwrap();
-    
+
     for emoji in emojis {
         let name = emoji.unwrap().file_name().into_string().unwrap();
         let metadata_path = format!("{}/{name}/metadata.json", EMOJIS_PATH.as_str());
@@ -31,11 +31,9 @@ fn main() {
             .as_str();
 
         let is_skintone_emoji = metadata.contains("Skintones");
-        
+
         if let Some(css) = get_animated_css(emoji, &name) {
-            css_animated
-                .write_all(css.as_bytes())
-                .unwrap();
+            css_animated.write_all(css.as_bytes()).unwrap();
         } else {
             css_animated
                 .write_all(get_css(emoji, &name, is_skintone_emoji, "3D").as_bytes())
@@ -90,23 +88,35 @@ fn get_css(emoji: &str, name: &str, is_skintone_emoji: bool, variant: &str) -> S
 
 fn get_animated_css(emoji: &str, name: &str) -> Option<String> {
     let path: Option<String> = {
-        for entry in WalkDir::new("./animated-fluent-emoji/Emojis").into_iter().filter_map(|e| e.ok()) {
-            if entry.file_name().to_str().unwrap().starts_with(name) {
-                return Some(entry.path().display().to_string());           
+        for entry in WalkDir::new("animated-fluent-emoji/Emojis")
+            .into_iter()
+            .filter_map(|e| e.ok())
+        {
+            if entry
+                .file_name()
+                .to_str()
+                .unwrap()
+                .to_lowercase()
+                .starts_with(&name.to_lowercase())
+            {
+                return Some(entry.path().display().to_string());
             }
         }
         None
     };
-    
-    if path.is_none() { 
+
+    if path.is_none() {
         eprintln!("Animated Emoji not found for {name}");
         return None;
     }
 
     let url = format!(
-        "https://siris01.github.io/discord-fluent/animated-fluentui-emoji/{}",
+        "https://siris01.github.io/discord-fluent/{}",
         encode(&path.unwrap())
     );
 
-    Some(format!("img[alt|=\"{emoji}\"] {{ content: url(\"{}\"); }}\n", url))
+    Some(format!(
+        "img[alt|=\"{emoji}\"] {{ content: url(\"{}\"); }}\n",
+        url
+    ))
 }
