@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Discord Fluent
 @namespace      github.com/Siris01/discord-fluent
-@version        2.0.0
+@version        2.0.1
 @description    Replace default discord emojis with MS Fluent emojis
 @preprocessor   stylus
 @author         Siris
@@ -9,5 +9,5 @@
 ==/UserStyle== */
 
 @-moz-document regexp("https?://(canary\\.|ptb\\.|)discord.com/.*") {
-    @import url("https://siris01.github.io/discord-fluent/css/fluent-" + variant + ".css")
+    @import url("https://discord-fluent.siris.me/css/fluent-" + variant + ".css")
 }
