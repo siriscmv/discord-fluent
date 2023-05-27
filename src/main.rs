@@ -87,26 +87,14 @@ fn get_css(emoji: &str, name: &str, is_skintone_emoji: bool, variant: &str) -> S
 }
 
 fn get_animated_css(emoji: &str, name: &str) -> Option<String> {
-    let path: Option<String> = {
-        let mut path = None;
-        for entry in WalkDir::new("animated-fluent-emoji/Emojis")
-            .into_iter()
-            .filter_map(|e| e.ok())
-        {
-            if entry
-                .file_name()
-                .to_str()
-                .unwrap()
-                .to_lowercase()
-                .starts_with(&name.to_lowercase())
-            {
-                path = Some(entry.path().display().to_string());
-                break;
-            }
-        }
-
-        path
-    };
+    let path = WalkDir::new("animated-fluent-emoji/Emojis")
+        .into_iter()
+        .filter_map(|e| e.ok())
+        .find(|entry| {
+            entry.file_name().to_str().unwrap().to_lowercase()
+                == format!("{}.png", name.to_lowercase())
+        })
+        .map(|entry| entry.path().display().to_string());
 
     if path.is_none() {
         eprintln!("Animated Emoji not found for {name}");

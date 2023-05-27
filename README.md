@@ -28,3 +28,8 @@
 - Only the emojis in chat and reactions are replaced, not the ones in the emoji picker.
 - Visiting a channel with a lof of default emojis may cause the browser/client to freeze for a few seconds.
 - Fluent Emojis do not support flags and regional indicators.
+
+## Development
+
+- Clone the repo
+- Clone submodule `git submodule update --init --recursive`
