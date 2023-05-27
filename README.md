@@ -32,4 +32,4 @@
 ## Development
 
 - Clone the repo
-- Clone submodule `git submodule update --init --recursive`
+- Clone submodules - `git submodule update --init --recursive`
